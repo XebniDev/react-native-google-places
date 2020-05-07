@@ -16,7 +16,7 @@
 	RCTPromiseRejectBlock _reject;
 }
 
-- (instancetype)init 
+- (instancetype)init
 {
 	self = [super init];
 	_instance = self;
@@ -33,7 +33,7 @@
 {
     _resolve = resolve;
     _reject = reject;
-    
+
     GMSAutocompleteViewController *viewController = [[GMSAutocompleteViewController alloc] init];
     viewController.autocompleteFilter = autocompleteFilter;
     viewController.autocompleteBounds = autocompleteBounds;
@@ -41,16 +41,16 @@
     viewController.placeFields = selectedFields;
 	viewController.delegate = self;
 	if (@available(iOS 13.0, *)) {
-    if(UIScreen.mainScreen.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ){
-	  viewController.primaryTextColor = UIColor.whiteColor;
-	  viewController.secondaryTextColor = UIColor.lightGrayColor;
-	  viewController.tableCellSeparatorColor = UIColor.lightGrayColor;
-	  viewController.tableCellBackgroundColor = UIColor.darkGrayColor;
-       } else {
-          viewController.primaryTextColor = UIColor.blackColor;
-          viewController.secondaryTextColor = UIColor.lightGrayColor;
-          viewController.tableCellSeparatorColor = UIColor.lightGrayColor;
-          viewController.tableCellBackgroundColor = UIColor.whiteColor;
+        if(UIScreen.mainScreen.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ){
+	        viewController.primaryTextColor = UIColor.whiteColor;
+	        viewController.secondaryTextColor = UIColor.lightGrayColor;
+	        viewController.tableCellSeparatorColor = UIColor.lightGrayColor;
+	        viewController.tableCellBackgroundColor = UIColor.darkGrayColor;
+        } else {
+            viewController.primaryTextColor = UIColor.blackColor;
+            viewController.secondaryTextColor = UIColor.lightGrayColor;
+            viewController.tableCellSeparatorColor = UIColor.lightGrayColor;
+            viewController.tableCellBackgroundColor = UIColor.whiteColor;
        }
     }
     UIViewController *topController = [self getTopController];
@@ -59,18 +59,18 @@
 
 // Handle the user's selection.
 - (void)viewController:(GMSAutocompleteViewController *)viewController
-	didAutocompleteWithPlace:(GMSPlace *)place 
+	didAutocompleteWithPlace:(GMSPlace *)place
 {
     UIViewController *topController = [self getTopController];
     [topController dismissViewControllerAnimated:YES completion:nil];
-	
+
 	if (_resolve) {
         _resolve([NSMutableDictionary dictionaryWithGMSPlace:place]);
     }
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
-	didFailAutocompleteWithError:(NSError *)error 
+	didFailAutocompleteWithError:(NSError *)error
 {
     UIViewController *topController = [self getTopController];
     [topController dismissViewControllerAnimated:YES completion:nil];
@@ -82,7 +82,7 @@
 }
 
 // User canceled the operation.
-- (void)wasCancelled:(GMSAutocompleteViewController *)viewController 
+- (void)wasCancelled:(GMSAutocompleteViewController *)viewController
 {
     UIViewController *topController = [self getTopController];
     [topController dismissViewControllerAnimated:YES completion:nil];
@@ -91,12 +91,12 @@
 }
 
 // Turn the network activity indicator on and off again.
-- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController 
+- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController
 {
   	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
-- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController 
+- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController
 {
   	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
